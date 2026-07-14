@@ -10,7 +10,7 @@ export const getAccessToken  = () => Cookies.get(ACCESS_TOKEN_KEY)
 export const getRefreshToken = () => Cookies.get(REFRESH_TOKEN_KEY)
 
 export const setTokens = (access: string, refresh: string) => {
-  // access token: session (hilang kalau tab ditutup)
+  // access token: session
   Cookies.set(ACCESS_TOKEN_KEY, access, { sameSite: 'strict' })
   // refresh token: 7 hari
   Cookies.set(REFRESH_TOKEN_KEY, refresh, { expires: 7, sameSite: 'strict' })
@@ -39,7 +39,7 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   return config
 })
 
-// ─── Response interceptor: auto refresh kalau 401 ────────────────────────────
+// ─── Response interceptor: auto refresh 401 ────────────────────────────
 
 let isRefreshing = false
 let failedQueue: Array<{
